@@ -24,4 +24,10 @@ return function (App $app) {
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
     });
+
+    // Catch-all route to serve a 404 Not Found page if none of the routes match
+    $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {
+        $handler = $this->notFoundHandler; // handle using the default Slim page not found handler
+        return $handler($req, $res);
+    });
 };
