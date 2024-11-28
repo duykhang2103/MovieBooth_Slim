@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\User\CreateUserAction;
+use App\Application\Actions\User\DeleteUserByEmailAction;
+use App\Application\Actions\User\DeleteUserByIdAction;
 use App\Application\Actions\User\ListUsersAction;
+use App\Application\Actions\User\UpdateUserAction;
+use App\Application\Actions\User\UpdateUserByIdAction;
 use App\Application\Actions\User\ViewUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -20,9 +25,14 @@ return function (App $app) {
         return $response;
     });
 
+    
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
+        $group->post('/{email}', CreateUserAction::class);
+        $group->put('/{id}', UpdateUserByIdAction::class);
+        $group->delete('/{id:\d+}', DeleteUserByIdAction::class); // Only allow numbers for the ID
+        $group->delete('/{email}', DeleteUserByEmailAction::class);
     });
 
     // Catch-all route to serve a 404 Not Found page if none of the routes match

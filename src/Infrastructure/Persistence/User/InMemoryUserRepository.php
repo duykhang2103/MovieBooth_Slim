@@ -6,9 +6,8 @@ namespace App\Infrastructure\Persistence\User;
 
 use App\Domain\User\User;
 use App\Domain\User\UserNotFoundException;
-use App\Domain\User\UserRepository;
 
-class InMemoryUserRepository implements UserRepository
+class InMemoryUserRepository implements IUserService
 {
     /**
      * @var User[]
@@ -18,14 +17,19 @@ class InMemoryUserRepository implements UserRepository
     /**
      * @param User[]|null $users
      */
-    public function __construct(array $users = null)
+    public function __construct(?array $users = null)
     {
         $this->users = $users ?? [
-            1 => new User(1, 'bill.gates', 'Bill', 'Gates'),
-            2 => new User(2, 'steve.jobs', 'Steve', 'Jobs'),
-            3 => new User(3, 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
-            4 => new User(4, 'evan.spiegel', 'Evan', 'Spiegel'),
-            5 => new User(5, 'jack.dorsey', 'Jack', 'Dorsey'),
+            // 1 => new User(1, 'bill.gates', 'Bill', 'Gates'),
+            // 2 => new User(2, 'steve.jobs', 'Steve', 'Jobs'),
+            // 3 => new User(3, 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
+            // 4 => new User(4, 'evan.spiegel', 'Evan', 'Spiegel'),
+            // 5 => new User(5, 'jack.dorsey', 'Jack', 'Dorsey'),
+            1 => new User("bill.gates",),
+            2 => new User( 'steve.jobs'),
+            3 => new User( 'mark.zuckerberg'),
+            4 => new User( 'evan.spiegel'),
+            5 => new User( 'jack.dorsey'),
         ];
     }
 
@@ -33,8 +37,9 @@ class InMemoryUserRepository implements UserRepository
      * {@inheritdoc}
      */
     public function findAll(): array
-    {
-        return array_values($this->users);
+    {   
+        // return array_values($this->users);
+        return array_values(["bill.gates","steve.jobs","mark.zuckerberg","evan.spiegel","jack.dorsey"]);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Application\Settings\SettingsInterface;
+use App\Infrastructure\Utility\SettingsInterface;
 use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;

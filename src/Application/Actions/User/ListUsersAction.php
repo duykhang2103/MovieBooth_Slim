@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace App\Application\Actions\User;
 
-use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ResponseInterface;
 
 class ListUsersAction extends UserAction
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function action(): Response
+    protected function action(): ResponseInterface
     {
-        $users = $this->userRepository->findAll();
+        // try {
 
-        $this->logger->info("Users list was viewed.");
-
-        return $this->respondWithData($users);
+            $users = $this->userService->findAll();
+            
+            $this->logger->info("Users list was viewed");
+            
+            return $this->respondWithData([
+                "message" => "Users list was viewed",
+                "data" => $users
+            ]);
+        // } catch (\Exception $e) {
+        //     $this->logger->error("An error occurred: " . $e->getErrorMessage());
+        //     throw new \Slim\Exception\HttpInternalServerErrorException($this->request, $e->getErrorMessage());
+        // }
     }
 }
