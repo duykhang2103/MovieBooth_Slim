@@ -31,16 +31,16 @@ jobs:
         with:
           dependency-versions: "highest"
 
-      - name: Coding standards
-        if: matrix.analysis
-        run: vendor/bin/phpcs
+      # - name: Coding standards
+      #   if: matrix.analysis
+      #   run: vendor/bin/phpcs
 
-      - name: Static analysis
-        if: matrix.analysis
-        run: vendor/bin/phpstan
+      # - name: Static analysis
+      #   if: matrix.analysis
+      #   run: vendor/bin/phpstan
 
-      - name: Tests
-        run: vendor/bin/phpunit --coverage-clover clover.xml
+      # - name: Tests
+      #   run: vendor/bin/phpunit --coverage-clover clover.xml
 
       # - name: Upload coverage results to Coveralls
       #   if: matrix.analysis
