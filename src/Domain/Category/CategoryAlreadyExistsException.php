@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Domain\User;
+namespace App\Domain\Category;
 
 use App\Domain\Exception\DomainAlreadyExistsException;
 
-class UserAlreadyExistsException extends DomainAlreadyExistsException
+class CategoryAlreadyExistsException extends DomainAlreadyExistsException
 {
-    public function __construct($email)
+    public function __construct($name)
     {
         parent::__construct();
-        $this->message = "User with email $email already exists.";
+        $this->message = "Category with name $name already exists.";
     }
 
     public function getStatusCode(): int

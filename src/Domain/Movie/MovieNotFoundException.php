@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User;
+namespace App\Domain\Movie;
 
 use App\Domain\Exception\DomainRecordNotFoundException;
 
-class UserNotFoundException extends DomainRecordNotFoundException
+class MovieNotFoundException extends DomainRecordNotFoundException
 {
-    public function __construct(int $userId)
+    public function __construct(int $movieId)
     {
         parent::__construct();
-        $this->message = "User with id: $userId not found.";
+        $this->message = "Movie with id: $movieId not found.";
     }
 
     public function getStatusCode(): int

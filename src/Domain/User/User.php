@@ -4,64 +4,40 @@ declare(strict_types=1);
 
 namespace App\Domain\User;
 
-use DateTimeImmutable;
+use App\Domain\Ticket\Ticket;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
-#[Entity, Table(name:"users")]
-class User {
-    // private ?int $id;
-
-    // private string $username;
-
-    // private string $firstName;
-
-    // private string $lastName;
-
-    // public function __construct(?int $id, string $username, string $firstName, string $lastName)
-    // {
-    //     $this->id = $id;
-    //     $this->username = strtolower($username);
-    //     $this->firstName = ucfirst($firstName);
-    //     $this->lastName = ucfirst($lastName);
-    // }
-
-    // public function getId(): ?int
-    // {
-    //     return $this->id;
-    // }
-
-    // public function getUsername(): string
-    // {
-    //     return $this->username;
-    // }
-
-    // public function getFirstName(): string
-    // {
-    //     return $this->firstName;
-    // }
-
-    // public function getLastName(): string
-    // {
-    //     return $this->lastName;
-    // }
-
+#[Entity, Table(name: "users")]
+class User
+{
     #[Id, Column(type: 'integer'), GeneratedValue(strategy: 'AUTO')]
     public int $id;
 
     #[Column(type: 'string', unique: true, nullable: false)]
     public string $email;
 
-    // #[Column(name: 'registered_at', type: 'datetimetz_immutable', nullable: false)]
-    // private DateTimeImmutable $registeredAt;
+    #[OneToMany(mappedBy: 'user', targetEntity: Ticket::class)]
+    private Collection $tickets;
+
 
     public function __construct(string $email)
     {
         $this->email = $email;
+        $this->tickets = new ArrayCollection();
+
         // $this->registeredAt = new DateTimeImmutable('now');
+    }
+
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
     }
 
     public function getId(): int

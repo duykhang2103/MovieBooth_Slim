@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User;
+namespace App\Domain\Category;
 
 use App\Domain\Exception\DomainRecordNotFoundException;
 
-class UserNotFoundException extends DomainRecordNotFoundException
+class CategoryNotFoundException extends DomainRecordNotFoundException
 {
-    public function __construct(int $userId)
+    public function __construct(string $name)
     {
         parent::__construct();
-        $this->message = "User with id: $userId not found.";
+        $this->message = "Category with name: $name not found.";
     }
 
     public function getStatusCode(): int

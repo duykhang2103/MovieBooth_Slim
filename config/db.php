@@ -9,21 +9,22 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
-return function(ContainerBuilder $containerBuilder) {
+return function (ContainerBuilder $containerBuilder) {
   $containerBuilder->addDefinitions([
     EntityManager::class => function (ContainerInterface $c): EntityManager {
       $settings = $c->get(SettingsInterface::class);
       $cache = $settings->get('doctrine')['dev_mode'] ?
-          new ArrayAdapter() :
-          new FilesystemAdapter('', 0, $settings->get('doctrine')['cache_dir']);
+        new ArrayAdapter() :
+        new FilesystemAdapter('', 0, $settings->get('doctrine')['cache_dir']);
 
       $config = ORMSetup::createAttributeMetadataConfiguration(
-          $settings->get('doctrine')['metadata_dirs'],
-          $settings->get('doctrine')['dev_mode'],
-          null,
-          $cache
+        $settings->get('doctrine')['metadata_dirs'],
+        $settings->get('doctrine')['dev_mode'],
+        null,
+        $cache
       );
       $connection = DriverManager::getConnection($settings->get('doctrine')['connection']);
       return new EntityManager($connection, $config);
-    }]);
+    }
+  ]);
 };

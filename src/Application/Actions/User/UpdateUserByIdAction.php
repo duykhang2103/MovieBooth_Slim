@@ -6,8 +6,10 @@ use App\Application\Actions\ActionPayload;
 use App\Domain\User\UserNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 
-class UpdateUserByIdAction extends UserAction {
-  public function action(): ResponseInterface {
+class UpdateUserByIdAction extends UserAction
+{
+  public function action(): ResponseInterface
+  {
     try {
       $id = $this->resolveArg("id");
       $user = $this->userService->updateUser($id);
@@ -18,7 +20,7 @@ class UpdateUserByIdAction extends UserAction {
     } catch (UserNotFoundException $e) {
       return $this->respondWithData([
         "message" => $e->getErrorMessage()
-        ], $e->getStatusCode());
+      ], $e->getStatusCode());
     }
   }
 }
